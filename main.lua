@@ -5,13 +5,18 @@ function love.load()
     target.radius = 50
 
     score = 0
-    timer = 0
+    timer = 10
 
     gameFont = love.graphics.newFont(40)
 end
 
 function love.update(dt)
-    
+    if timer > 0 then
+        timer = timer - dt
+    end
+    if timer < 0 then
+        timer = 0
+    end
 end
 
 function love.draw()
@@ -19,7 +24,8 @@ function love.draw()
     love.graphics.circle("fill", target.x, target.y, target.radius)
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(gameFont)
-    love.graphics.print(score, 0 , 0)
+    love.graphics.print(score, 0, 0)
+    love.graphics.print(math.ceil(timer), 80, 0)
 end
 
 function love.mousepressed(x, y, button)

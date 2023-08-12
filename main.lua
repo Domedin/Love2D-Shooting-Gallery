@@ -2,12 +2,19 @@ function love.load()
     target = {}
     target.x = 300
     target.y = 300
-    target.radius = 50
+    target.radius = 35
 
     score = 0
     timer = 10
 
     gameFont = love.graphics.newFont(40)
+    
+    sprites= {}
+    sprites.Background = love.graphics.newImage('Sprites/Background.png')
+    sprites.Target = love.graphics.newImage('Sprites/Target.png')
+    sprites.Crosshairs = love.graphics.newImage('Sprites/Crosshairs.png')
+
+    love.mouse.setVisible(false)    
 end
 
 function love.update(dt)
@@ -20,12 +27,17 @@ function love.update(dt)
 end
 
 function love.draw()
-    love.graphics.setColor(0, 0.5, 0.4)
-    love.graphics.circle("fill", target.x, target.y, target.radius)
+    love.graphics.draw(sprites.Background, 0, 0)
+    
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(gameFont)
     love.graphics.print(score, 0, 0)
-    love.graphics.print(math.ceil(timer), 80, 0)
+    love.graphics.print(math.ceil(timer), 395, 0)
+
+    
+    love.graphics.draw(sprites.Target, target.x - target.radius, target.y - target.radius)
+    love.graphics.draw(sprites.Crosshairs, love.mouse.getX() -17.5, love.mouse.getY() - 17.5)
+    
 end
 
 function love.mousepressed(x, y, button)
